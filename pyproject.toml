@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "climeleon"
+version = "0.1.0"
+description = "Bundle openstack-cli and chameleon tools"
+authors = ["Michael Sherman <shermanm@uchicago.edu>"]
+
+packages = [{ include = "climeleon", from="." }]
+
+[tool.poetry.dependencies]
+python = "^3.6.2"
+doniclient = "^"
+gnocchiclient = "<=7.0.5"
+osc-placement = "<=1.7.0"
+python-cinderclient = "<=5.0.2"
+python-dracclient = "^5.1.0"
+python-glanceclient = "<=2.17.1"
+python-ironicclient = "<=3.1.2"
+python-keystoneclient = "<=3.21.0"
+python-neutronclient = "<=6.14.1"
+python-novaclient = "<=15.1.1"
+python-openstackclient = { extras = ["cli"], version = "<=4.0.2" }
+python-swiftclient = "<=3.8.1"
+python-blazarclient = { git = "https://github.com/ChameleonCloud/python-blazarclient", rev = "chameleoncloud/stable/train" }
+python-heatclient = { git = "https://github.com/ChameleonCloud/python-heatclient", rev = "stable/rocky" }
+python-chi = "^0.9.0"
+python-chi-operator = "^0.3.0"
+
+[tool.poetry.dev-dependencies]
+black = "^21.5b1"
+pydocstyle = "^6.0.0"
+flake8 = "^3.9.2"
+pytest = "^6.2.4"
+isort = "^5.8.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+cc-openstack = "climeleon.cli:run"
+cc-blazar = "climeleon.cli:run"
+cc-swift = "climeleon.cli:run"
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
