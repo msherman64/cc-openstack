@@ -1,13 +1,13 @@
 ARG PYTHON_VER=3.9
-FROM python:${PYTHON_VER}-alpine as builder
+FROM python:${PYTHON_VER}-slim as builder
 
 ENV XDG_CACHE_HOME="/tmp/.cache/"
-
 RUN --mount=type=cache,target=$XDG_CACHE_HOME \
-  apk add --no-cache \
-    gcc make \
-    git \
-    jq
+  apt-get update && apt-get install -f -y \
+  gcc \
+  git \
+  jq \
+  make
 
 RUN --mount=type=cache,target=$XDG_CACHE_HOME \
   pip3 install poetry
@@ -19,10 +19,6 @@ WORKDIR /host
 COPY pyproject.toml poetry.lock ./
 RUN --mount=type=cache,target=$XDG_CACHE_HOME \
   poetry config virtualenvs.create false && \
-  poetry install --no-interaction
+  poetry install --no-interaction --no-root
 
-COPY clouds2rc /usr/local/bin/
-COPY scripts/* /usr/local/bin/
-COPY clouds*.yaml /etc/openstack/
-COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["cc-openstack"]

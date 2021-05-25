@@ -38,8 +38,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 cc-openstack = "climeleon.cli:run"
-cc-blazar = "climeleon.cli:run"
-cc-swift = "climeleon.cli:run"
 
 [tool.black]
 line-length = 88
